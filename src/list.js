@@ -5,13 +5,15 @@ import {
   templateList,
   totalTask,
 } from "./selector.js";
+import { v4 as uuidv4 } from 'uuid';
+
 
 export const tasks = ["Read Japanese Book", "Make Test", "Learn Programming"];
 
 export const addTask = (currentTask) => {
   listGroup.append(createNewTask(currentTask));
   taskInput.value = null;
-  updateTotalTask();
+  // updateTotalTask();
 };
 
 export const updateTotalTask = () => {
@@ -28,7 +30,7 @@ export const createNewTask = (currentValue) => {
   // use with node template
   const list = templateList.content.cloneNode(true); //fragment
   //   console.dir(list);
-  list.querySelector(".list").id = `list${Date.now()}`;
+  list.querySelector(".list").id = uuidv4();
   list.querySelector(".task-name").innerText = currentValue;
 
   return list;
@@ -40,7 +42,7 @@ export const deleteTask = (taskId) => {
     list.classList.add("animate_animated", "animate__hinge");
     list.addEventListener("animationend", () => {
       list.remove(); // detect nearest element
-      updateTotalTask();
+      // updateTotalTask();
     });
   }
 };
@@ -99,5 +101,5 @@ export const checkDoneTask = (taskId) => {
     editBtn.removeAttribute("Disabled");
     editBtn.classList.remove("hidden");
   }
-  updateDoneTask();
+  // updateDoneTask();
 };
