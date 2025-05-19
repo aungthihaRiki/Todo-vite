@@ -6,7 +6,7 @@ import {
   totalTask,
 } from "./selector.js";
 import { v4 as uuidv4 } from 'uuid';
-
+import Swal from '../node_modules/sweetalert2';
 
 export const tasks = ["Read Japanese Book", "Make Test", "Learn Programming"];
 
@@ -30,21 +30,29 @@ export const createNewTask = (currentValue) => {
   // use with node template
   const list = templateList.content.cloneNode(true); //fragment
   //   console.dir(list);
-  list.querySelector(".list").id = uuidv4();
+  list.querySelector(".list").id = `list${uuidv4()}`;
   list.querySelector(".task-name").innerText = currentValue;
 
   return list;
 };
 
 export const deleteTask = (taskId) => {
-  if (window.confirm("Are you sure?")) {
+  Swal.fire({
+  title: "Do you want to delete?",
+  icon:"warning",
+  showCancelButton: true,
+  confirmButtonText: "Delete",
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire("Deleted!", "", "success");
     const list = document.querySelector(`#${taskId}`);
     list.classList.add("animate_animated", "animate__hinge");
     list.addEventListener("animationend", () => {
       list.remove(); // detect nearest element
-      // updateTotalTask();
     });
   }
+});
 };
 
 export const editTask = (taskId) => {

@@ -19,6 +19,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "sweetalert2": "^11.21.2",
     "uuid": "^11.1.0"
   }
 }

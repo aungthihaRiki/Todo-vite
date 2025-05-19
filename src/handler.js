@@ -3,10 +3,9 @@ import {
   checkDoneTask,
   deleteTask,
   editTask,
-  updateDoneTask,
-  updateTotalTask,
 } from "./list.js";
 import { listGroup, taskInput } from "./selector.js";
+import Swal from '../node_modules/sweetalert2';
 
 export const listGroupHandler = (event) => {
   const list = event.target.closest(".list");
@@ -22,7 +21,7 @@ export const listGroupHandler = (event) => {
   if (event.target.classList.contains("list-edit-btn")) {
     editTask(list.id);
   }
-  updateDoneTask();
+  // updateDoneTask();
 };
 
 export const addTaskBtnHandler = () => {
@@ -44,20 +43,26 @@ export const taskInputHandler = (event) => {
 };
 
 export const deleteAllTaskHandler = () => {
-  console.log("Delete");
   const lists = listGroup.querySelectorAll(".list");
-  if (confirm("Are you sure to delete all?")) {
-    lists.forEach((list) => list.remove());
-    updateTotalTask();
-    updateDoneTask();
-  }
+  Swal.fire({
+    title: "Do you want to delete all?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Delete",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "", "success");
+      lists.forEach((list) => list.remove());
+    }
+  });
 };
 
 export const doneAllTaskHandler = () => {
-  console.log("done");
   const lists = listGroup.querySelectorAll(".list");
   lists.forEach((list) => {
-    list.querySelector(".list-done-check").checked = true;
-    checkDoneTask(list.id);
+    if(!list.querySelector(".list-done-check").checked){
+      list.querySelector(".list-done-check").checked = true;
+      checkDoneTask(list.id);
+    } 
   });
 };

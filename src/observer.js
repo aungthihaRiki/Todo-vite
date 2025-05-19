@@ -3,6 +3,7 @@ import { listGroup } from "./selector.js";
 
 const observer = () => {
   const log = () => {
+    console.log("Observer");
     updateDoneTask();
     updateTotalTask();
   };
@@ -10,11 +11,11 @@ const observer = () => {
   const observerOptions = {
     childList: true,
     subtree: true,
-    attribute: true,
+    attributes: true,
   };
 
-  const listGroupOberver = new MutationObserver(log);
-  listGroupOberver.observe(listGroup, observerOptions);
+  const listGroupObserver = new MutationObserver(log);
+  listGroupObserver.observe(listGroup, observerOptions);
 };
 
 export default observer;
