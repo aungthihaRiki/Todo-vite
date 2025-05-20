@@ -29,7 +29,6 @@ export const updateDoneTask = () => {
 export const createNewTask = (currentValue) => {
   // use with node template
   const list = templateList.content.cloneNode(true); //fragment
-  //   console.dir(list);
   list.querySelector(".list").id = `list${uuidv4()}`;
   list.querySelector(".task-name").innerText = currentValue;
 
@@ -60,9 +59,11 @@ export const editTask = (taskId) => {
   const editInput = list.querySelector(".list-edit-input");
   const saveIcon = list.querySelector(".save-icon");
   const editIcon = list.querySelector(".edit-icon");
+  const deleteBtn = list.querySelector(".list-del-btn")
   const listDoneCheck = list.querySelector(".list-done-check");
   const taskName = list.querySelector(".task-name");
   listDoneCheck.toggleAttribute("Disabled");
+  deleteBtn.toggleAttribute("Disabled");
   taskName.classList.toggle("hidden");
   editInput.classList.toggle("hidden");
   editIcon.classList.toggle("hidden");
@@ -84,6 +85,7 @@ export const editTask = (taskId) => {
       saveIcon.classList.add("hidden");
       editInput.classList.add("hidden");
       listDoneCheck.removeAttribute("Disabled");
+      deleteBtn.removeAttribute("Disabled");
       list.querySelector(".control").classList.remove("!translate-x-0");
       taskName.innerText = editInput.value;
       editInput.removeEventListener("keyup", keyEnter); // from ChatGPT
