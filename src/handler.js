@@ -1,11 +1,6 @@
-import {
-  addTask,
-  checkDoneTask,
-  deleteTask,
-  editTask,
-} from "./list.js";
+import { addTask, checkDoneTask, deleteTask, editTask } from "./list.js";
 import { listGroup, taskInput } from "./selector.js";
-import Swal from '../node_modules/sweetalert2';
+import Swal from "../node_modules/sweetalert2";
 
 export const listGroupHandler = (event) => {
   const list = event.target.closest(".list");
@@ -28,7 +23,8 @@ export const addTaskBtnHandler = () => {
   if (taskInput.value.trim()) {
     addTask(taskInput.value);
   } else {
-    alert("Empty Text");
+    Swal.fire({ title: "Empty Text!", icon: "error" });
+    // alert("Empty Text");
   }
 };
 
@@ -37,7 +33,8 @@ export const taskInputHandler = (event) => {
     if (taskInput.value.trim()) {
       addTask(taskInput.value);
     } else {
-      alert("Empty Text");
+      // alert("Empty Text");
+      Swal.fire({ title: "Empty Text!", icon: "error" });
     }
   }
 };
@@ -60,9 +57,9 @@ export const deleteAllTaskHandler = () => {
 export const doneAllTaskHandler = () => {
   const lists = listGroup.querySelectorAll(".list");
   lists.forEach((list) => {
-    if(!list.querySelector(".list-done-check").checked){
+    if (!list.querySelector(".list-done-check").checked) {
       list.querySelector(".list-done-check").checked = true;
       checkDoneTask(list.id);
-    } 
+    }
   });
 };
